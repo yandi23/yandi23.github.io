@@ -1,0 +1,774 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="javascript,坑,setInterval(),没填的坑," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="简单的用setInterval()写一个带有动画的99乘法表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于setInterval()模拟循环的问题">
+<meta property="og:url" content="http://yoursite.com/2016/10/14/about-setInterval/index.html">
+<meta property="og:site_name" content="Yandi">
+<meta property="og:description" content="简单的用setInterval()写一个带有动画的99乘法表">
+<meta property="og:updated_time" content="2017-01-02T03:25:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于setInterval()模拟循环的问题">
+<meta name="twitter:description" content="简单的用setInterval()写一个带有动画的99乘法表">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/10/14/about-setInterval/"/>
+
+
+
+
+
+  <title> 关于setInterval()模拟循环的问题 | Yandi </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Yandi</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-search">
+          <a href="/search" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-search"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/14/about-setInterval/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Ydi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Yandi">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Yandi" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                关于setInterval()模拟循环的问题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-14T13:34:03+08:00">
+                2016-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>简单的用setInterval()写一个带有动画的99乘法表</p>
+<a id="more"></a>
+<h2 id="问题情境"><a href="#问题情境" class="headerlink" title="问题情境"></a>问题情境</h2><ul>
+<li>实现功能：逐个输出99乘法表</li>
+<li>程序(js部分):</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">document</span>.body.innerHTML += <span class="string">"&lt;ul&gt;&lt;/ul&gt;"</span>;</div><div class="line">	<span class="keyword">var</span> oUl =<span class="built_in">document</span>.getElementsByTagName(<span class="string">"ul"</span>)[<span class="number">0</span>];</div><div class="line">	<span class="keyword">var</span> i= <span class="number">1</span>;</div><div class="line">	<span class="keyword">var</span> timer1 =setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="keyword">if</span> (i&lt;=<span class="number">9</span>) &#123;</div><div class="line">			oUl.innerHTML += <span class="string">"&lt;li&gt;&lt;/li&gt;"</span>;</div><div class="line">			<span class="keyword">var</span> oLi=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"li"</span>)[i];</div><div class="line">			<span class="keyword">var</span> j= <span class="number">1</span>;</div><div class="line">			<span class="keyword">var</span> timer2 = setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">				<span class="keyword">if</span> (j&lt;=i) &#123;</div><div class="line">					<span class="keyword">var</span> str = i+<span class="string">"*"</span>+j+<span class="string">"="</span>+i*j;</div><div class="line">					oLi.innerHTML += <span class="string">"&lt;span&gt;"</span>+ str +<span class="string">"&lt;/span&gt;"</span>;</div><div class="line">					j ++;</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">else</span>&#123;</div><div class="line">					clearInterval(timer2);</div><div class="line">				&#125;</div><div class="line"></div><div class="line">				&#125;,<span class="number">500</span>);</div><div class="line">			i ++;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span>&#123;</div><div class="line">			clearInterval(timer1);</div><div class="line">		&#125;</div><div class="line">		&#125;,<span class="number">4500</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>上面的代码完全是利用setInterval()模拟的定时器做的99乘法表，<br>思路是按照for循环嵌套的方式来的。<br>但是输出时却出现了这样的情况：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="number">2</span>*<span class="number">1</span>=<span class="number">22</span>*<span class="number">2</span>=<span class="number">4</span></div><div class="line"><span class="number">3</span>*<span class="number">1</span>=<span class="number">33</span>*<span class="number">2</span>=<span class="number">63</span>*<span class="number">3</span>=<span class="number">9</span></div><div class="line"><span class="number">4</span>*<span class="number">1</span>=<span class="number">44</span>*<span class="number">2</span>=<span class="number">84</span>*<span class="number">3</span>=<span class="number">124</span>*<span class="number">4</span>=<span class="number">16</span></div><div class="line"><span class="number">5</span>*<span class="number">1</span>=<span class="number">55</span>*<span class="number">2</span>=<span class="number">105</span>*<span class="number">3</span>=<span class="number">155</span>*<span class="number">4</span>=<span class="number">205</span>*<span class="number">5</span>=<span class="number">25</span></div><div class="line"><span class="number">6</span>*<span class="number">1</span>=<span class="number">66</span>*<span class="number">2</span>=<span class="number">126</span>*<span class="number">3</span>=<span class="number">186</span>*<span class="number">4</span>=<span class="number">246</span>*<span class="number">5</span>=<span class="number">306</span>*<span class="number">6</span>=<span class="number">36</span></div><div class="line"><span class="number">7</span>*<span class="number">1</span>=<span class="number">77</span>*<span class="number">2</span>=<span class="number">147</span>*<span class="number">3</span>=<span class="number">217</span>*<span class="number">4</span>=<span class="number">287</span>*<span class="number">5</span>=<span class="number">357</span>*<span class="number">6</span>=<span class="number">427</span>*<span class="number">7</span>=<span class="number">49</span></div><div class="line"><span class="number">8</span>*<span class="number">1</span>=<span class="number">88</span>*<span class="number">2</span>=<span class="number">168</span>*<span class="number">3</span>=<span class="number">248</span>*<span class="number">4</span>=<span class="number">328</span>*<span class="number">5</span>=<span class="number">408</span>*<span class="number">6</span>=<span class="number">488</span>*<span class="number">7</span>=<span class="number">568</span>*<span class="number">8</span>=<span class="number">64</span></div><div class="line"><span class="number">9</span>*<span class="number">1</span>=<span class="number">99</span>*<span class="number">2</span>=<span class="number">189</span>*<span class="number">3</span>=<span class="number">279</span>*<span class="number">4</span>=<span class="number">369</span>*<span class="number">5</span>=<span class="number">459</span>*<span class="number">6</span>=<span class="number">549</span>*<span class="number">7</span>=<span class="number">639</span>*<span class="number">8</span>=<span class="number">72</span></div><div class="line"><span class="number">10</span>*<span class="number">1</span>=<span class="number">1010</span>*<span class="number">2</span>=<span class="number">2010</span>*<span class="number">3</span>=<span class="number">3010</span>*<span class="number">4</span>=<span class="number">4010</span>*<span class="number">5</span>=<span class="number">5010</span>*<span class="number">6</span>=<span class="number">6010</span>*<span class="number">7</span>=<span class="number">7010</span>*<span class="number">8</span>=<span class="number">8010</span>*<span class="number">9</span>=<span class="number">9010</span>*<span class="number">10</span>=<span class="number">100</span></div></pre></td></tr></table></figure>
+<p>输出从2*1=2开始，到10*10结束。</p>
+<p>为什么会是从2-10呢？这是个问题。<br>难道是setInterval()执行的问题？</p>
+<h2 id="相关知识"><a href="#相关知识" class="headerlink" title="相关知识"></a>相关知识</h2><p>我去查了setInterval()的用法</p>
+<blockquote>
+<p>setInterval()</p>
+</blockquote>
+<p>w3c这样介绍:</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">定义和用法</div><div class="line">	setInterval() 方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。</div><div class="line">	setInterval() 方法会不停地调用函数，直到 clearInterval() 被调用或窗口被关闭。</div><div class="line">	由 setInterval() 返回的 ID 值可用作 clearInterval() 方法的参数。</div><div class="line"></div><div class="line">语法</div><div class="line">	setInterval(code,millisec[,<span class="string">"lang"</span>])</div><div class="line">参数		描述</div><div class="line">code		必需。要调用的函数或要执行的代码串。</div><div class="line">millisec	必须。周期性执行或调用 code 之间的时间间隔，以毫秒计。</div><div class="line">返回值</div><div class="line">	一个可以传递给 Window.clearInterval() 从而取消对 code 的周期性执行的值。</div></pre></td></tr></table></figure>
+<p>但是看完这个并没有什么乱用，我觉得我需要一些更加底层的信息。<br>但是一时没找到（其实是懒），就考虑从其他部分去解决问题。</p>
+<h2 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h2><p>既然i的取值是1-9时，返回2-10，那么我试试i取值0-8：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="built_in">document</span>.body.innerHTML += <span class="string">"&lt;ul&gt;&lt;/ul&gt;"</span>;</div><div class="line">	<span class="keyword">var</span> oUl =<span class="built_in">document</span>.getElementsByTagName(<span class="string">"ul"</span>)[<span class="number">0</span>];</div><div class="line">	<span class="keyword">var</span> i= <span class="number">0</span>;</div><div class="line">	<span class="keyword">var</span> timer1 =setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">		<span class="keyword">if</span> (i&lt;=<span class="number">8</span>) &#123;</div><div class="line">			oUl.innerHTML += <span class="string">"&lt;li&gt;&lt;/li&gt;"</span>;</div><div class="line">			<span class="keyword">var</span> oLi=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"li"</span>)[i];</div><div class="line">			<span class="keyword">var</span> j= <span class="number">1</span>;</div><div class="line">			<span class="keyword">var</span> timer2 = setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">				<span class="keyword">if</span> (j&lt;=i) &#123;</div><div class="line">					<span class="keyword">var</span> str = i+<span class="string">"*"</span>+j+<span class="string">"="</span>+i*j;</div><div class="line">					oLi.innerHTML += <span class="string">"&lt;span&gt;"</span>+ str +<span class="string">"&lt;/span&gt;"</span>;</div><div class="line">					j ++;</div><div class="line">				&#125;</div><div class="line">				<span class="keyword">else</span>&#123;</div><div class="line">					clearInterval(timer2);</div><div class="line">				&#125;</div><div class="line"></div><div class="line">				&#125;,<span class="number">500</span>);</div><div class="line">			i ++;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">else</span>&#123;</div><div class="line">			clearInterval(timer1);</div><div class="line">		&#125;</div><div class="line">		&#125;,<span class="number">4500</span>);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>*<span class="number">1</span>=<span class="number">1</span></div><div class="line"><span class="number">2</span>*<span class="number">1</span>=<span class="number">22</span>*<span class="number">2</span>=<span class="number">4</span></div><div class="line"><span class="number">3</span>*<span class="number">1</span>=<span class="number">33</span>*<span class="number">2</span>=<span class="number">63</span>*<span class="number">3</span>=<span class="number">9</span></div><div class="line"><span class="number">4</span>*<span class="number">1</span>=<span class="number">44</span>*<span class="number">2</span>=<span class="number">84</span>*<span class="number">3</span>=<span class="number">124</span>*<span class="number">4</span>=<span class="number">16</span></div><div class="line"><span class="number">5</span>*<span class="number">1</span>=<span class="number">55</span>*<span class="number">2</span>=<span class="number">105</span>*<span class="number">3</span>=<span class="number">155</span>*<span class="number">4</span>=<span class="number">205</span>*<span class="number">5</span>=<span class="number">25</span></div><div class="line"><span class="number">6</span>*<span class="number">1</span>=<span class="number">66</span>*<span class="number">2</span>=<span class="number">126</span>*<span class="number">3</span>=<span class="number">186</span>*<span class="number">4</span>=<span class="number">246</span>*<span class="number">5</span>=<span class="number">306</span>*<span class="number">6</span>=<span class="number">36</span></div><div class="line"><span class="number">7</span>*<span class="number">1</span>=<span class="number">77</span>*<span class="number">2</span>=<span class="number">147</span>*<span class="number">3</span>=<span class="number">217</span>*<span class="number">4</span>=<span class="number">287</span>*<span class="number">5</span>=<span class="number">357</span>*<span class="number">6</span>=<span class="number">427</span>*<span class="number">7</span>=<span class="number">49</span></div><div class="line"><span class="number">8</span>*<span class="number">1</span>=<span class="number">88</span>*<span class="number">2</span>=<span class="number">168</span>*<span class="number">3</span>=<span class="number">248</span>*<span class="number">4</span>=<span class="number">328</span>*<span class="number">5</span>=<span class="number">408</span>*<span class="number">6</span>=<span class="number">488</span>*<span class="number">7</span>=<span class="number">568</span>*<span class="number">8</span>=<span class="number">64</span></div><div class="line"><span class="number">9</span>*<span class="number">1</span>=<span class="number">99</span>*<span class="number">2</span>=<span class="number">189</span>*<span class="number">3</span>=<span class="number">279</span>*<span class="number">4</span>=<span class="number">369</span>*<span class="number">5</span>=<span class="number">459</span>*<span class="number">6</span>=<span class="number">549</span>*<span class="number">7</span>=<span class="number">639</span>*<span class="number">8</span>=<span class="number">729</span>*<span class="number">9</span>=<span class="number">81</span></div></pre></td></tr></table></figure>
+<p>所以，这个问题解决了，但是有一个问题还没有解决，所以这是一个坑。<br>先写下来。</p>
+<h2 id="留下的坑"><a href="#留下的坑" class="headerlink" title="留下的坑"></a>留下的坑</h2><p style="color: red"><br>1. 为什么i取1-8才正确输出？而取1-9不行？<br><br>2. setInterval()到底是一个怎样的执行顺序？<br></p>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>分享原创技术，分享心情笔记，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-image.JPG" alt="Ydi WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-image.JPG" alt="Ydi Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/坑/" rel="tag"># 坑</a>
+          
+            <a href="/tags/setInterval/" rel="tag"># setInterval()</a>
+          
+            <a href="/tags/没填的坑/" rel="tag"># 没填的坑</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/12/event-binding/" rel="next" title="关于事件绑定中遇到的一个小问题">
+                <i class="fa fa-chevron-left"></i> 关于事件绑定中遇到的一个小问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/20/about-two-number-change/" rel="prev" title="关于两个数交换值的方法">
+                关于两个数交换值的方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Ydi" />
+          <p class="site-author-name" itemprop="name">Ydi</p>
+          <p class="site-description motion-element" itemprop="description">Fall in love with coding.</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yandi23" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://macshuo.com/" title="MacTalk" target="_blank">MacTalk</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题情境"><span class="nav-number">1.</span> <span class="nav-text">问题情境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关知识"><span class="nav-number">2.</span> <span class="nav-text">相关知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题解决"><span class="nav-number">3.</span> <span class="nav-text">问题解决</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#留下的坑"><span class="nav-number">4.</span> <span class="nav-text">留下的坑</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ydi</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="js/src/particle.js"></script>
+</body>
+</html>

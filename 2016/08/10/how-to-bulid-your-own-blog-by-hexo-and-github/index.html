@@ -1,0 +1,795 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="教程,hexo,Github," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="我的blog搭建完成了，中间也是很多曲折的，从不了解github，不知道hexo，不熟悉MarkDown语法，到成功完成自己的blog也是感触颇多。虽然网上这类教程还是挺多的，每篇都写的很详细，但是对于一个小白来说，还是觉得有很多地方跳跃性太大,不容易操作。所以我觉得有必要写这样的一篇教程。以此来帮助更多人。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Github上利用hexo搭建个人博客">
+<meta property="og:url" content="http://yoursite.com/2016/08/10/how-to-bulid-your-own-blog-by-hexo-and-github/index.html">
+<meta property="og:site_name" content="Yandi">
+<meta property="og:description" content="我的blog搭建完成了，中间也是很多曲折的，从不了解github，不知道hexo，不熟悉MarkDown语法，到成功完成自己的blog也是感触颇多。虽然网上这类教程还是挺多的，每篇都写的很详细，但是对于一个小白来说，还是觉得有很多地方跳跃性太大,不容易操作。所以我觉得有必要写这样的一篇教程。以此来帮助更多人。">
+<meta property="og:image" content="http://yoursite.com/../how-to-bulid-your-own-blog-by-hexo-and-github/hexo.jpg">
+<meta property="og:image" content="http://yoursite.com/../how-to-bulid-your-own-blog-by-hexo-and-github/hexo原理.jpg">
+<meta property="og:updated_time" content="2017-01-02T03:57:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在Github上利用hexo搭建个人博客">
+<meta name="twitter:description" content="我的blog搭建完成了，中间也是很多曲折的，从不了解github，不知道hexo，不熟悉MarkDown语法，到成功完成自己的blog也是感触颇多。虽然网上这类教程还是挺多的，每篇都写的很详细，但是对于一个小白来说，还是觉得有很多地方跳跃性太大,不容易操作。所以我觉得有必要写这样的一篇教程。以此来帮助更多人。">
+<meta name="twitter:image" content="http://yoursite.com/../how-to-bulid-your-own-blog-by-hexo-and-github/hexo.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/10/how-to-bulid-your-own-blog-by-hexo-and-github/"/>
+
+
+
+
+
+  <title> 在Github上利用hexo搭建个人博客 | Yandi </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Yandi</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle"></p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-search">
+          <a href="/search" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-search"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/10/how-to-bulid-your-own-blog-by-hexo-and-github/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Ydi">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Yandi">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Yandi" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                在Github上利用hexo搭建个人博客
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-08-10T13:29:51+08:00">
+                2016-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/教程/" itemprop="url" rel="index">
+                    <span itemprop="name">教程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我的blog搭建完成了，中间也是很多曲折的，从不了解github，不知道hexo，不熟悉MarkDown语法，到成功完成自己的blog也是感触颇多。虽然网上这类教程还是挺多的，每篇都写的很详细，但是对于一个小白来说，还是觉得有很多地方跳跃性太大,不容易操作。所以我觉得有必要写这样的一篇教程。以此来帮助更多人。</p>
+<a id="more"></a>
+<blockquote>
+<p style="color:#DD2121">我觉得你打算做这些之前先看下面的图,这些图是我自己理解的,都是大白话,有些地方可能不够准确,但对小白来讲我相信还是有帮助的,对于加深对接下里要做的事的理解还是有帮助的,更利于在某个环节出现了问题时解决问题.</p>
+
+</blockquote>
+<p><img src="../how-to-bulid-your-own-blog-by-hexo-and-github/hexo.jpg" alt="利用Hexo在Github上搭建博客"><br><img src="../how-to-bulid-your-own-blog-by-hexo-and-github/hexo原理.jpg" alt="Hexo原理"></p>
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a><code>声明</code></h2><p>安装HEXO依赖:</p>
+<ul>
+<li>node环境</li>
+<li>npm(现在安装node都会带npm)</li>
+<li>git</li>
+</ul>
+<p>这部分就不赘述了,直接从Git配置ssh开始(这部分不是必需,但是配置之后会很方便)</p>
+<h2 id="为git配置ssh"><a href="#为git配置ssh" class="headerlink" title="为git配置ssh"></a>为git配置ssh</h2><p>由于我们没有进行过ssh配置,所以省去检查有没有ssh连接配置这一步,直接开始配置ssh<br>打开Git Bash</p>
+<h3 id="设置git的user-name和email："><a href="#设置git的user-name和email：" class="headerlink" title="设置git的user name和email："></a>设置git的user name和email：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git config --global user.name <span class="string">"aqiongbei"</span> </div><div class="line"><span class="comment"># 改成你的注册Github的用户名</span></div><div class="line">git config --global user.email <span class="string">"aqiongbei@gmail.com"</span> </div><div class="line"><span class="comment"># 改成你的注册Github的邮箱</span></div></pre></td></tr></table></figure>
+<h3 id="生成SSH密钥："><a href="#生成SSH密钥：" class="headerlink" title="生成SSH密钥："></a>生成SSH密钥：</h3><p>生存密钥:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C <span class="string">"aqiongbei@gmail.com"</span></div><div class="line"><span class="comment"># 改成你注册Github的邮箱</span></div></pre></td></tr></table></figure></p>
+<p>返回提示如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa -C <span class="string">"aqiongbei@gmail.com"</span> </div><div class="line"><span class="comment"># 改成你注册Github的邮箱</span></div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/c/Users/neckpain/.ssh/id_rsa):</div><div class="line"><span class="comment"># 直接回车</span></div><div class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):</div><div class="line"><span class="comment"># 直接回车</span></div><div class="line">Enter same passphrase again:</div><div class="line"><span class="comment"># 直接回车</span></div><div class="line">Your identification has been saved <span class="keyword">in</span> /c/Users/neckpain/.ssh/id_rsa.</div><div class="line"><span class="comment"># 生成的密钥</span></div><div class="line">Your public key has been saved <span class="keyword">in</span> /c/Users/neckpain/.ssh/id_rsa.pub.</div><div class="line"><span class="comment"># 生成的公钥</span></div><div class="line">The key fingerprint is:</div><div class="line">e3:51:33:xx:xx:xx:xx:xxx:61:28:83:e2:81 xxxxxx@yy.com</div><div class="line"><span class="comment"># 本机已完成ssh key设置，其存放路径为：c:/Users/neckpain/.ssh/下</span></div></pre></td></tr></table></figure></p>
+<p>然后会提示，不用理，直接按回车，一共三次。<br>在<code>C:\Users\Neckpain\.ssh</code>得到 id_rsa 和 id_rsa.pub 文件，说明生成成功</p>
+<h3 id="添加密钥到-Github"><a href="#添加密钥到-Github" class="headerlink" title="添加密钥到 Github"></a>添加密钥到 Github</h3><p>打开 Github，登录自己的账号后<br>点击自己的头像-&gt;settings-&gt;SSH Keys-&gt;Add SSH key<br>将本地 id_rsa.pub 中的内容粘贴到 Key 文本框中，随意输入一个 title，点击 Add Key 即可。</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>Git里面继续输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -T git@github.com</div></pre></td></tr></table></figure></p>
+<p>返回<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ssh -T git@github.com</div><div class="line">Hi aqiongbei! You<span class="string">'ve successfully authenticated, but GitHub does not provide shell access.</span></div></pre></td></tr></table></figure></p>
+<p>则说明验证成功。<br>然后开始安装Hexo</p>
+<h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2><p>以下部分在你想在本地搭建博客的<code>文件夹内进行</code>(我这里是myBlog)。</p>
+<h3 id="安装hexo-1"><a href="#安装hexo-1" class="headerlink" title="安装hexo"></a>安装hexo</h3><p><code>进入文件夹</code>之后右键选择Git bash here，在打开的Git窗口输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g hexo-cli</div></pre></td></tr></table></figure></p>
+<h3 id="新建一个博客"><a href="#新建一个博客" class="headerlink" title="新建一个博客"></a>新建一个博客</h3><p>安装 Hexo 完成后，<code>在文件夹内</code>执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo init</div></pre></td></tr></table></figure></p>
+<p>新建完成后，指定文件夹的目录如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── _config.yml</div><div class="line">├── package.json</div><div class="line">├── scaffolds</div><div class="line">├── <span class="built_in">source</span></div><div class="line">|   ├── _drafts</div><div class="line">|   └── _posts</div><div class="line">└── themes</div></pre></td></tr></table></figure></p>
+<h3 id="安装依赖包："><a href="#安装依赖包：" class="headerlink" title="安装依赖包："></a>安装依赖包：</h3><p>一段代码滚动之后输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install</div><div class="line"><span class="comment"># 安装package.json中的依赖包</span></div></pre></td></tr></table></figure></p>
+<h3 id="生成静态页面"><a href="#生成静态页面" class="headerlink" title="生成静态页面"></a>生成静态页面</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo generate </div><div class="line"><span class="comment"># 可简写为hexo g</span></div></pre></td></tr></table></figure>
+<p>会出现类似以下反馈<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ hexo g</div><div class="line">INFO  Start processing</div><div class="line">INFO  Files loaded <span class="keyword">in</span> 865 ms</div><div class="line">INFO  Deleted: categories/教程/hexo/index.html</div><div class="line">INFO  Deleted: categories/教程/hexo/Github/index.html</div><div class="line">INFO  Generated: atom.xml</div><div class="line">INFO  Generated: search.xml</div><div class="line">INFO  Generated: 2016/08/10/how-to-bulid-your-own-blog-by-hexo-and-github/index.html</div><div class="line">INFO  Generated: index.html</div><div class="line">INFO  Generated: categories/index.html</div><div class="line">INFO  Generated: 2016/08/10/how-to-bulid-your-own-blog-by-hexo-and-github/hexo原理.jpg</div><div class="line">INFO  Generated: 2016/08/10/how-to-bulid-your-own-blog-by-hexo-and-github/hexo.jpg</div><div class="line">INFO  11 files generated <span class="keyword">in</span> 943 ms</div></pre></td></tr></table></figure></p>
+<p>都是以info开头的信息，是不会出现什么错误的，所以这个地方方不用担心。</p>
+<h3 id="启动本地服务器预览"><a href="#启动本地服务器预览" class="headerlink" title="启动本地服务器预览"></a>启动本地服务器预览</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexo server </div><div class="line"><span class="comment"># 可简写为hexo s</span></div><div class="line"><span class="comment"># 调试的时候用hexo s --debug</span></div></pre></td></tr></table></figure>
+<p>出现下面的情况时<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo s</div><div class="line">INFO  Start processing</div><div class="line">INFO  Hexo is running at http://localhost:4000/. Press Ctrl+C to stop.</div></pre></td></tr></table></figure></p>
+<p>表明服务器启动成功，这时候打开<code>http://localhost:4000/</code>即可看到你的博客。这只是本地的blog，还需要部署到Github。</p>
+<h2 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h2><p>部署仅需一条命令。但是得做些准备。</p>
+<h3 id="修改-config-yml文件"><a href="#修改-config-yml文件" class="headerlink" title="修改_config.yml文件"></a>修改<code>_config.yml</code>文件</h3><p><code>注意：``_config.yml</code>文件每个冒号后面空一格才能填值<br>_config.yml文件在blog文件夹的根目录下。<br>打开，然后找到这些字段<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>:</div></pre></td></tr></table></figure></p>
+<p>然后修改这些字段类似这样（没有的字段就添加）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">  <span class="built_in">type</span>: git </div><div class="line">  <span class="comment"># 一定是git</span></div><div class="line">  repo: https://github.com/aqiongbei/aqiongbei.github.io.git </div><div class="line">  <span class="comment"># 你的Github pages仓库地址</span></div><div class="line">  branch: master </div><div class="line">  <span class="comment"># 可省略，省略的话默认master</span></div></pre></td></tr></table></figure></p>
+<h3 id="安装-hexo-deployer-git-一个部署工具"><a href="#安装-hexo-deployer-git-一个部署工具" class="headerlink" title="安装 hexo-deployer-git(一个部署工具)"></a>安装 hexo-deployer-git(一个部署工具)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>我有强迫症每次部署之前先clean一下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">hexo clean </div><div class="line"><span class="comment"># 清除缓存文件 (db.json) 和已生成的静态文件 (public)。（个人习惯，非必需）</span></div><div class="line">hexo g </div><div class="line"><span class="comment"># 生成静态文件，每次改动之后都需要执行以下这个命令。</span></div><div class="line">hexo d </div><div class="line"><span class="comment"># 这个才是真正的部署命令，这里用的都是简写形式</span></div></pre></td></tr></table></figure></p>
+<p>git里面返回类似下面的信息的话就部署成功了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$ hexo d</div><div class="line">INFO  Deploying: git</div><div class="line">INFO  Clearing .deploy_git folder...</div><div class="line">INFO  Copying files from public folder...</div><div class="line">[master 33e830e] Site updated: 2016-08-11 18:14:12</div><div class="line"> 4 files changed, 26 insertions(+), 8 deletions(-)</div><div class="line">Branch master <span class="built_in">set</span> up to track remote branch master from https://github.com/aqiongbei/aqiongbei.github.io.git.</div><div class="line">To https://github.com/aqiongbei/aqiongbei.github.io.git</div><div class="line">   d21e3c3..33e830e  HEAD -&gt; master</div><div class="line">INFO  Deploy <span class="keyword">done</span>: git</div></pre></td></tr></table></figure></p>
+<p>类似是指大部分信息是以<code>INFO</code>开头的。而且最后一条是<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">INFO  Deploy <span class="keyword">done</span>: git</div></pre></td></tr></table></figure></p>
+<p>这样表示部署成功了。而有时候会出现这样的<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">$ hexo d</div><div class="line">INFO  Deploying: git</div><div class="line">INFO  Clearing .deploy_git folder...</div><div class="line">INFO  Copying files from public folder...</div><div class="line">[master 04d9b2a] Site updated: 2016-08-11 18:16:51</div><div class="line"> 6 files changed, 12 insertions(+), 9 deletions(-)</div><div class="line">Fatal: TaskCanceledException encountered.</div><div class="line">bash: /dev/tty: No such device or address</div><div class="line">error: failed to execute prompt script (<span class="built_in">exit</span> code 1)</div><div class="line">fatal: could not <span class="built_in">read</span> Username <span class="keyword">for</span> <span class="string">'https://github.com'</span>: Invalid argument</div><div class="line">FATAL Something<span class="string">'s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</span></div><div class="line">Error: Fatal: TaskCanceledException encountered.</div><div class="line">bash: /dev/tty: No such device or address</div><div class="line">error: failed to execute prompt script (exit code 1)</div><div class="line">fatal: could not read Username for 'https://github.com<span class="string">': Invalid argument</span></div><div class="line"></div><div class="line">    at ChildProcess.&lt;anonymous&gt; (F:\myBlog\node_modules\hexo-deployer-git\node_modules\hexo-util\lib\spawn.js:37:17)</div><div class="line">    at emitTwo (events.js:87:13)</div><div class="line">    at ChildProcess.emit (events.js:172:7)</div><div class="line">    at ChildProcess.cp.emit (F:\myBlog\node_modules\hexo-deployer-git\node_modules\hexo-util\node_modules\cross-spawn\lib\enoent.js:40:29)</div><div class="line">    at maybeClose (internal/child_process.js:827:16)</div><div class="line">    at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)</div><div class="line">FATAL Fatal: TaskCanceledException encountered.</div><div class="line">bash: /dev/tty: No such device or address</div><div class="line">error: failed to execute prompt script (exit code 1)</div><div class="line">fatal: could not read Username for 'https://github.com<span class="string">': Invalid argument</span></div><div class="line"></div><div class="line">Error: Fatal: TaskCanceledException encountered.</div><div class="line">bash: /dev/tty: No such device or address</div><div class="line">error: failed to execute prompt script (exit code 1)</div><div class="line">fatal: could not read Username for 'https://github.com<span class="string">': Invalid argument</span></div><div class="line"></div><div class="line">    at ChildProcess.&lt;anonymous&gt; (F:\myBlog\node_modules\hexo-deployer-git\node_modules\hexo-util\lib\spawn.js:37:17)</div><div class="line">    at emitTwo (events.js:87:13)</div><div class="line">    at ChildProcess.emit (events.js:172:7)</div><div class="line">    at ChildProcess.cp.emit (F:\myBlog\node_modules\hexo-deployer-git\node_modules\hexo-util\node_modules\cross-spawn\lib\enoent.js:40:29)</div><div class="line">    at maybeClose (internal/child_process.js:827:16)</div><div class="line">    at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)</div></pre></td></tr></table></figure></p>
+<p>这种显示大量信息的八成就是出错了。看到<code>FATAL</code>、<code>error</code>就表明呵呵了。建议关掉本地预览页面(<a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a>) （我也不懂为什么，但是这样做有时候确实有效），然后hexo clean一下，重新生成静态文件，再次部署。<br>部署成功之后，打开yourusername.github.io看看是否已经有blog了？<br>enjoy it！<br>参考资料：</p>
+<ul>
+<li><a href="https://hexo.io/zh-cn/docs/" title="hexo中文指南" target="_blank" rel="external">hexo中文指南</a></li>
+<li><a href="http://tengj.top/2016/02/22/hexo%E5%B9%B2%E8%B4%A7%E7%B3%BB%E5%88%97%EF%BC%9A%EF%BC%88%E4%B8%80%EF%BC%89hexo+gitHub%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2/" title="hexo+gitHub搭建个人独立博客" target="_blank" rel="external">hexo+gitHub搭建个人独立博客</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>分享原创技术，分享心情笔记，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-image.JPG" alt="Ydi WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-image.JPG" alt="Ydi Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/教程/" rel="tag"># 教程</a>
+          
+            <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+            <a href="/tags/Github/" rel="tag"># Github</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/11/apply-Next-theme-on-hexo/" rel="prev" title="应用Next主题并进行一些修改[log]">
+                应用Next主题并进行一些修改[log] <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Ydi" />
+          <p class="site-author-name" itemprop="name">Ydi</p>
+          <p class="site-description motion-element" itemprop="description">Fall in love with coding.</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yandi23" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://macshuo.com/" title="MacTalk" target="_blank">MacTalk</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#声明"><span class="nav-number">1.</span> <span class="nav-text">声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为git配置ssh"><span class="nav-number">2.</span> <span class="nav-text">为git配置ssh</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置git的user-name和email："><span class="nav-number">2.1.</span> <span class="nav-text">设置git的user name和email：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成SSH密钥："><span class="nav-number">2.2.</span> <span class="nav-text">生成SSH密钥：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加密钥到-Github"><span class="nav-number">2.3.</span> <span class="nav-text">添加密钥到 Github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">2.4.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装hexo"><span class="nav-number">3.</span> <span class="nav-text">安装hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装hexo-1"><span class="nav-number">3.1.</span> <span class="nav-text">安装hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建一个博客"><span class="nav-number">3.2.</span> <span class="nav-text">新建一个博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖包："><span class="nav-number">3.3.</span> <span class="nav-text">安装依赖包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成静态页面"><span class="nav-number">3.4.</span> <span class="nav-text">生成静态页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动本地服务器预览"><span class="nav-number">3.5.</span> <span class="nav-text">启动本地服务器预览</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署到Github"><span class="nav-number">4.</span> <span class="nav-text">部署到Github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#修改-config-yml文件"><span class="nav-number">4.1.</span> <span class="nav-text">修改_config.yml文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-hexo-deployer-git-一个部署工具"><span class="nav-number">4.2.</span> <span class="nav-text">安装 hexo-deployer-git(一个部署工具)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署"><span class="nav-number">4.3.</span> <span class="nav-text">部署</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ydi</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="js/src/particle.js"></script>
+</body>
+</html>
